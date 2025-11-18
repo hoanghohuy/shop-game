@@ -65,12 +65,12 @@ export default function ChargeMoney() {
               placeholder="Chọn mệnh giá"
               onChange={onChange}
               options={[
-                { value: 10000, label: <span>10,000</span> },
-                { value: 20000, label: <span>20,000</span> },
-                { value: 50000, label: <span>50,000</span> },
-                { value: 100000, label: <span>100,000</span> },
-                { value: 200000, label: <span>200,000</span> },
-                { value: 500000, label: <span>500,000</span> },
+                { value: 10000, label: <span>10,000đ</span> },
+                { value: 20000, label: <span>20,000đ</span> },
+                { value: 50000, label: <span>50,000đ</span> },
+                { value: 100000, label: <span>100,000đ</span> },
+                { value: 200000, label: <span>200,000đ</span> },
+                { value: 500000, label: <span>500,000đ</span> },
               ]}
             />
           )}
@@ -106,7 +106,7 @@ export default function ChargeMoney() {
           name="code"
         />
         {<HelperText text={errors.code?.message} />}
-        <Button htmlType="submit" type="primary" className="w-full mt-1">
+        <Button htmlType="submit" type="primary" className="w-full">
           Nạp ngay
         </Button>
       </form>

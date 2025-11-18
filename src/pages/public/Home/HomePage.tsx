@@ -5,17 +5,21 @@ import { Send } from "lucide-react";
 import React from "react";
 import ChargeMoney from "./ChargeMoney";
 import HomeServices from "./HomeServices";
+import Marquee from "react-fast-marquee";
 
 export default function HomePage() {
   return (
     <main className="bg-slate-300">
+      <Marquee speed={100} className="bg-yellow-700 text-white py-1 text-sm">
+        I can be a React component, multiple React components, or just some
+        text.
+      </Marquee>
       <HomeModal />
       <div>
         <div className="py-4 max-w-[1200px] flex gap-4 mx-auto items-center">
           <div className="w-[30%]">
             <ChargeMoney />
           </div>
-
           <div className="w-[70%]">
             <Slider />
           </div>

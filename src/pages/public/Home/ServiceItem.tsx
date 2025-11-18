@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const productType = [
@@ -19,7 +20,7 @@ export default function ServiceItem({
   return (
     <div className="bg-white p-4 rounded-md" key={data?._id}>
       <div className="flex items-center justify-between">
-        <h2 className="uppercase font-bold">{data?.name}</h2>
+        <h2 className="uppercase font-bold text-lg">{data?.name}</h2>
         <Button
           type="primary"
           iconPosition="end"
@@ -31,7 +32,10 @@ export default function ServiceItem({
       <div className="italic text-sm">{data?.description}</div>
       <div className="grid grid-cols-4 gap-2 mt-2">
         {productType.map((item) => (
-          <div className="relative border border-slate-300 rounded-md overflow-hidden">
+          <Link
+            href={"/danh-muc/account"}
+            className="relative border border-slate-300 rounded-md overflow-hidden hover:opacity-85"
+          >
             <div className="absolute left-0 top-0 bg-red-600 text-white px-4 text-sm py-1 font-bold">
               Mới
             </div>
@@ -45,7 +49,7 @@ export default function ServiceItem({
                 Hiện có: <span className="text-red-500">{item.count}</span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
