@@ -7,10 +7,10 @@ import ChargeMoney from "./ChargeMoney";
 
 export default function HomePage() {
   return (
-    <main className="bg-amber-300">
+    <main className="bg-slate-300">
       <HomeModal />
       <div>
-        <div className="py-4 max-w-[1200px] flex gap-4 mx-auto items-stretch">
+        <div className="py-4 max-w-[1200px] flex gap-4 mx-auto items-center">
           <div className="w-[30%]">
             <ChargeMoney />
           </div>
