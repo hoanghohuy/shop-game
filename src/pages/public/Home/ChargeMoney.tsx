@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Input, Select, Typography } from "antd";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-const { Title, Text } = Typography;
+const { Title } = Typography;
 import * as Yup from "yup";
 import HelperText from "@/components/HelperText";
 
@@ -18,7 +18,6 @@ export default function ChargeMoney() {
   const {
     handleSubmit,
     control,
-    reset,
     formState: { errors, isSubmitting },
   } = useForm<IChargeMoney>({
     resolver: yupResolver(
@@ -35,7 +34,7 @@ export default function ChargeMoney() {
 
   return (
     <div className="bg-white w-full pt-3 pb-5 px-5 rounded-md">
-      <Title level={4}>NẠP THẺ + TOP NẠP THẺ</Title>
+      <Title level={4}>NẠP THẺ</Title>
       <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
@@ -43,7 +42,7 @@ export default function ChargeMoney() {
           render={({ field: { onChange, value } }) => (
             <Select
               value={value}
-              className="w-full mt-2!"
+              className="w-full"
               placeholder="Chọn nhà mạng"
               onChange={onChange}
               options={[
@@ -55,13 +54,14 @@ export default function ChargeMoney() {
           )}
           name="network"
         />
+        <HelperText text={errors.network?.message} />
         <Controller
           control={control}
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <Select
               value={value}
-              className="w-full mt-2!"
+              className="w-full"
               placeholder="Chọn mệnh giá"
               onChange={onChange}
               options={[
@@ -76,12 +76,13 @@ export default function ChargeMoney() {
           )}
           name="amount"
         />
+        {<HelperText text={errors.amount?.message} />}
         <Controller
           control={control}
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <Input
-              className="mt-2!"
+              className="w-full"
               value={value}
               onChange={onChange}
               placeholder="Số seri"
@@ -89,16 +90,14 @@ export default function ChargeMoney() {
           )}
           name="serial"
         />
-        {errors.network?.message && (
-          <HelperText text={errors.network.message} />
-        )}
+        {<HelperText text={errors.serial?.message} />}
 
         <Controller
           control={control}
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <Input
-              className="mt-2!"
+              className="w-full"
               value={value}
               onChange={onChange}
               placeholder="Mã số thẻ"
@@ -106,16 +105,8 @@ export default function ChargeMoney() {
           )}
           name="code"
         />
-
-        <Text type="warning">
-          Hãy kiểm tra kỹ thông tin của thẻ trước khi nạp
-        </Text>
-        <Button
-          htmlType="submit"
-          size="large"
-          type="primary"
-          className="w-full"
-        >
+        {<HelperText text={errors.code?.message} />}
+        <Button htmlType="submit" type="primary" className="w-full mt-1">
           Nạp ngay
         </Button>
       </form>

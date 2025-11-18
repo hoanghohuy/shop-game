@@ -30,8 +30,8 @@ export default function Slider() {
           <Image
             src={"/banner.jpg"}
             width={1000}
-            height={400}
-            className="overflow-hidden w-full h-auto aspect-5/2 object-cover rounded-md"
+            height={300}
+            className="overflow-hidden w-full h-[300px] object-cover rounded-md"
             alt={`image-${item}`}
           />
         </SwiperSlide>

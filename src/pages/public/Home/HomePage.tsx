@@ -4,6 +4,7 @@ import { FloatButton } from "antd";
 import { Send } from "lucide-react";
 import React from "react";
 import ChargeMoney from "./ChargeMoney";
+import HomeServices from "./HomeServices";
 
 export default function HomePage() {
   return (
@@ -20,6 +21,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+      <HomeServices />
       <FloatButton
         className="w-12 h-12"
         icon={<Send width={18} height={18} />}

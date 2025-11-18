@@ -3,9 +3,9 @@ import { Typography } from "antd";
 
 const { Text } = Typography;
 
-export default function HelperText({ text }: { text: string }) {
+export default function HelperText({ text }: { text?: string }) {
   return (
-    <Text className="mt-2" type="danger">
+    <Text className="block w-full text-xs! min-h-4 pb-1" type="danger">
       {text}
     </Text>
   );
