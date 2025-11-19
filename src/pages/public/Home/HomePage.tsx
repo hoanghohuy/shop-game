@@ -10,9 +10,9 @@ import Marquee from "react-fast-marquee";
 export default function HomePage() {
   return (
     <main className="bg-slate-300">
-      <Marquee speed={100} className="bg-yellow-700 text-white py-1 text-sm">
-        I can be a React component, multiple React components, or just some
-        text.
+      <Marquee speed={100} className="bg-[#3498db] text-white py-1 text-sm">
+        Nick1s.Com - Nơi chia sẻ kiến thức về lập trình, công nghệ và phát triển
+        bản thân. Hãy theo dõi chúng tôi để cập nhật những bài viết mới nhất!
       </Marquee>
       <HomeModal />
       <div>

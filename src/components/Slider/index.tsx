@@ -25,7 +25,7 @@ export default function Slider() {
       //   onSlideChange={() => console.log('slide change')}
       //   onSwiper={(swiper) => console.log(swiper)}
     >
-      {[1, 2, 3, 4, 5, 6].map((item) => (
+      {[1, 2, 3].map((item) => (
         <SwiperSlide key={item}>
           <Image
             src={"/banner.jpg"}

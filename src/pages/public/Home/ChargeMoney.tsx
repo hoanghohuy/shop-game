@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 const { Title } = Typography;
 import * as Yup from "yup";
 import HelperText from "@/components/HelperText";
+import { BadgeDollarSign } from "lucide-react";
 
 interface IChargeMoney {
   network: string;
@@ -34,7 +35,9 @@ export default function ChargeMoney() {
 
   return (
     <div className="bg-white w-full pt-3 pb-5 px-5 rounded-md">
-      <Title level={4}>NẠP THẺ</Title>
+      <Title level={4} className="text-[#FFA239]!">
+        NẠP THẺ
+      </Title>
       <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}

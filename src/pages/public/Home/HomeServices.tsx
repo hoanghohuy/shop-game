@@ -1,7 +1,7 @@
 import React from "react";
 import ServiceItem from "./ServiceItem";
 
-const services = [
+export const services = [
   {
     _id: 1,
     name: "Tương tác",

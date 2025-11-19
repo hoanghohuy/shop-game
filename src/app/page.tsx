@@ -1,8 +1,9 @@
 "use client";
 import Footer from "@/layouts/public/Footer";
 import Header from "@/layouts/public/Header";
+import { antdThemeConfig } from "@/lib/antdTheme";
 import HomePage from "@/pages/public/Home/HomePage";
-import { Button } from "antd";
+import { Button, ConfigProvider } from "antd";
 import axios from "axios";
 import { useState } from "react";
 
@@ -20,12 +21,12 @@ export default function Home() {
     setImageUrl(res.data.data.secure_url);
   }
   return (
-    <div>
+    <ConfigProvider theme={antdThemeConfig}>
       <Header />
       <HomePage />
       <Footer />
       <input type="file" accept="image/*" onChange={handleUpload} />
       {imageUrl && <img src={imageUrl} alt="Uploaded" width={300} />}
-    </div>
+    </ConfigProvider>
   );
 }

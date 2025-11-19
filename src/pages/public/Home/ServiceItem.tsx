@@ -33,6 +33,7 @@ export default function ServiceItem({
       <div className="grid grid-cols-4 gap-2 mt-2">
         {productType.map((item) => (
           <Link
+            key={item._id}
             href={"/danh-muc/account"}
             className="relative border border-slate-300 rounded-md overflow-hidden hover:opacity-85"
           >
