@@ -18,7 +18,7 @@ export default function ServiceItem({
   data: { _id: number; name: string; description: string; count: number };
 }) {
   return (
-    <div className="bg-white p-4 rounded-md" key={data?._id}>
+    <div className="bg-[#f0f2f5] p-4 rounded-md" key={data?._id}>
       <div className="flex items-center justify-between">
         <h2 className="uppercase font-bold text-lg">{data?.name}</h2>
         <Button
@@ -29,19 +29,19 @@ export default function ServiceItem({
           Xem thêm
         </Button>
       </div>
-      <div className="italic text-sm">{data?.description}</div>
-      <div className="grid grid-cols-4 gap-2 mt-2">
+      <div className="italic text-sm mt-2">{data?.description}</div>
+      <div className="grid gap-2 mt-2 xs:grid-cols-2 xl:grid-cols-4">
         {productType.map((item) => (
           <Link
             key={item._id}
             href={"/danh-muc/account"}
-            className="relative border border-slate-300 rounded-md overflow-hidden hover:opacity-85"
+            className="relative bg-white shadow-sm rounded-md hover:opacity-85"
           >
-            <div className="absolute left-0 top-0 bg-red-600 text-white px-4 text-sm py-1 font-bold">
-              Mới
-            </div>
-            <div className="absolute right-0 top-0 bg-blue-600 text-white px-4 py-1 text-sm font-bold">
-              Phổ biến
+            <div className="absolute -left-1.5 top-2">
+              <div className="bg-red-500 text-white px-3 text-xs py-1 font-bold rounded-r-xs">
+                Phổ biến
+              </div>
+              <div className="w-0 h-0 border-l-6 border-l-transparent border-t-6 border-t-red-600"></div>
             </div>
             <Image src={item.image} width={1000} height={400} alt={item.name} />
             <div className="px-3 py-2">

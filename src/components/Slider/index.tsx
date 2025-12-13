@@ -28,10 +28,10 @@ export default function Slider() {
       {[1, 2, 3].map((item) => (
         <SwiperSlide key={item}>
           <Image
-            src={"/banner.jpg"}
+            src={"/banner.png"}
             width={1000}
-            height={300}
-            className="overflow-hidden w-full h-[300px] object-cover rounded-md"
+            height={294}
+            className="overflow-hidden w-full xl:h-[294px] object-cover rounded-md xs:h-auto"
             alt={`image-${item}`}
           />
         </SwiperSlide>

@@ -9,18 +9,23 @@ import Marquee from "react-fast-marquee";
 
 export default function HomePage() {
   return (
-    <main className="bg-slate-300">
-      <Marquee speed={100} className="bg-[#3498db] text-white py-1 text-sm">
-        Nick1s.Com - Nơi chia sẻ kiến thức về lập trình, công nghệ và phát triển
-        bản thân. Hãy theo dõi chúng tôi để cập nhật những bài viết mới nhất!
-      </Marquee>
+    <main className="pt-3 bg-[url('/website-background.jpg')] bg-cover bg-center bg-no-repeat">
+      <div className="max-w-[1200px] mx-auto xs:px-3 xl:px-0">
+        <div className="px-3 bg-[#3498db] rounded-sm">
+          <Marquee speed={100} className="text-white py-2 text-sm">
+            Nơi chia sẻ kiến thức về lập trình, công nghệ và phát triển bản
+            thân. Hãy theo dõi chúng tôi để cập nhật những bài viết mới nhất!
+          </Marquee>
+        </div>
+      </div>
+
       <HomeModal />
       <div>
-        <div className="py-4 max-w-[1200px] flex gap-4 mx-auto items-center">
-          <div className="w-[30%]">
+        <div className="py-3 max-w-[1200px] flex xl:flex xl:flex-row gap-4 mx-auto items-center xs:px-3 xs:flex-col xl:px-0 xs:flex xs:gap-4">
+          <div className="xl:w-[30%] xs:w-full">
             <ChargeMoney />
           </div>
-          <div className="w-[70%]">
+          <div className="xl:w-[70%] xs:w-full">
             <Slider />
           </div>
         </div>
