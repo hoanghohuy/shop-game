@@ -33,7 +33,7 @@ export default function page() {
   const onSubmit = (data: ILogin) => {};
 
   return (
-    <div className="w-full max-w-[400px] mx-auto xs:px-3">
+    <div className="w-full xl:max-w-[400px] mx-auto xs:px-3">
       <h1 className="font-bold text-3xl text-center mt-5">Đăng nhập</h1>
       <form
         className="w-full py-2 min-h-[600px]"

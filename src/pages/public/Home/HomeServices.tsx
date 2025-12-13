@@ -5,31 +5,23 @@ export const services = [
   {
     _id: 1,
     path: "/test",
-    name: "Tương tác",
-    description: "Tăng like, view.share, comment... cho sản phẩm của bạn",
+    name: "Tài khoản",
+    description:
+      "Bán tài khoản giá tốt, tài khoản sơ sinh, trắng thông tin,...",
     count: 99,
   },
   {
     _id: 2,
     path: "/test",
-    name: "Dịch vụ phần mềm",
-    description:
-      "Dịch vụ code tool MMO, đồ họa, video... và các dịch vụ liên quan",
+    name: "Dịch vụ cày thuê",
+    description: "Cày thuê sức mạnh, lấy vật phẩm, nâng cấp,...",
     count: 99,
   },
   {
     _id: 3,
     path: "/test",
-    name: "Blockchain",
-    description:
-      "TDịch vụ tiền ảo, NFT, coinlist... và các dịch vụ blockchain khác",
-    count: 99,
-  },
-  {
-    _id: 4,
-    path: "/test",
-    name: "Dịch vụ khác",
-    description: "Các dịch vụ MMO phổ biến khác hiện nay",
+    name: "Bán vật phẩm",
+    description: "Mua - bán vật phẩm game, ngọc, đá, vàng,...",
     count: 99,
   },
 ];

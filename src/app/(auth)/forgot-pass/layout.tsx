@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "Quên mật khẩu",
 };
 
-export default function RootLayout({
+export default function ForgotPasswordLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

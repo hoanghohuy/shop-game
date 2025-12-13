@@ -13,15 +13,17 @@ export default function HomePage() {
       <div className="max-w-[1200px] mx-auto xs:px-3 xl:px-0">
         <div className="px-3 bg-[#3498db] rounded-sm">
           <Marquee speed={100} className="text-white py-2 text-sm">
-            Nơi chia sẻ kiến thức về lập trình, công nghệ và phát triển bản
-            thân. Hãy theo dõi chúng tôi để cập nhật những bài viết mới nhất!
+            <h1>
+              Nơi chia sẻ kiến thức về lập trình, công nghệ và phát triển bản
+              thân. Hãy theo dõi chúng tôi để cập nhật những bài viết mới nhất!
+            </h1>
           </Marquee>
         </div>
       </div>
 
       <HomeModal />
       <div>
-        <div className="py-3 max-w-[1200px] flex xl:flex xl:flex-row gap-4 mx-auto items-center xs:px-3 xs:flex-col xl:px-0 xs:flex xs:gap-4">
+        <div className="py-3 max-w-[1200px] flex xl:flex xl:flex-row gap-4 mx-auto items-center xs:px-3 xs:flex-col-reverse xl:px-0 xs:flex xs:gap-4">
           <div className="xl:w-[30%] xs:w-full">
             <ChargeMoney />
           </div>

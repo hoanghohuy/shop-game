@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -23,7 +24,7 @@ const items: MenuItem[] = [
   },
   {
     label: "Danh mục",
-    key: "categories",
+    key: "/categories",
     children: services.map((service) => ({
       label: service.name,
       key: service._id,
@@ -43,7 +44,7 @@ const items: MenuItem[] = [
   },
   {
     label: "Tin tức",
-    key: "blog",
+    key: "/blog",
     onClick: () => window.location.assign("/blog"),
   },
   {
@@ -54,13 +55,20 @@ const items: MenuItem[] = [
 ];
 
 export default function Header() {
-  const [current, setCurrent] = useState("mail");
+  const path = usePathname();
+  const [current, setCurrent] = useState("/");
   const [open, setOpen] = useState(false);
 
   const onClick: MenuProps["onClick"] = (e) => {
     console.log("click ", e);
     setCurrent(e.key);
   };
+
+  useEffect(() => {
+    if (path) {
+      setCurrent(path);
+    }
+  }, []);
 
   return (
     <header className=" bg-white">
@@ -131,7 +139,7 @@ export default function Header() {
             >
               <div className="flex gap-2 items-center">
                 <div className="cursor-pointer p-2">
-                  <User width={24} height={24} className="text-slate-500" />
+                  <User width={24} height={24} className="text-slate-800" />
                 </div>
               </div>
             </Popover>
@@ -152,11 +160,8 @@ export default function Header() {
           open={open}
         >
           {items.map((item: any) =>
-            item.key !== "categories" ? (
-              <Link
-                className="block py-2 text-slate-800!"
-                href={`/${item?.key}`}
-              >
+            item.key !== "/categories" ? (
+              <Link className="block py-2 text-slate-800!" href={item.key}>
                 {item.label}
               </Link>
             ) : (

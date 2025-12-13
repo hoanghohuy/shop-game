@@ -1,3 +1,5 @@
+import { Breadcrumb } from "antd";
+import { Home } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -42,6 +44,24 @@ export default function page() {
         <div className="h-[200px] xl:h-[300px] text-white font-bold text-3xl bg-slate-700 rounded-lg flex items-center justify-center ">
           Cẩm nang chơi game
         </div>
+      </div>
+      <div className="mt-3 xl:px-0 xs:px-3 flex items-center gap-1">
+        <Home width={16} height={16} />
+        <Breadcrumb
+          className="text-slate-800!"
+          items={[
+            {
+              title: (
+                <Link href={"/"} className="text-slate-800!">
+                  Trang chủ
+                </Link>
+              ),
+            },
+            {
+              title: <div className="text-slate-800!">Tin tức</div>,
+            },
+          ]}
+        />
       </div>
       <div>
         <div className="mt-1 max-w-[1200px] mx-auto flex flex-col gap-4 pb-4 xs:px-3 xl:px-0">

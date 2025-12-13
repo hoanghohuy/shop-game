@@ -21,15 +21,15 @@ export default function ServiceItem({
     <div className="bg-[#f0f2f5] p-4 rounded-md" key={data?._id}>
       <div className="flex items-center justify-between">
         <h2 className="uppercase font-bold text-lg">{data?.name}</h2>
-        <Button
+        {/* <Button
           type="primary"
           iconPosition="end"
           icon={<MoveRight width={14} height={14} />}
         >
           Xem thêm
-        </Button>
+        </Button> */}
       </div>
-      <div className="italic text-sm mt-2">{data?.description}</div>
+      <div className="italic text-sm">{data?.description}</div>
       <div className="grid gap-2 mt-2 xs:grid-cols-2 xl:grid-cols-4">
         {productType.map((item) => (
           <Link
