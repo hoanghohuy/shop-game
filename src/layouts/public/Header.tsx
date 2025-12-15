@@ -1,6 +1,7 @@
 "use client";
 import { services } from "@/pages/public/Home/HomeServices";
-import { Drawer, MenuProps, Menu, Popover } from "antd";
+import { useAuthStore } from "@/store/authStore";
+import { Drawer, MenuProps, Menu, Popover, Button } from "antd";
 import {
   Facebook,
   KeySquare,
@@ -55,6 +56,7 @@ const items: MenuItem[] = [
 ];
 
 export default function Header() {
+  const { logout, isAuthenticated } = useAuthStore();
   const path = usePathname();
   const [current, setCurrent] = useState("/");
   const [open, setOpen] = useState(false);
@@ -113,33 +115,81 @@ export default function Header() {
               title="Tài khoản"
               content={
                 <div className="flex flex-col gap-2">
-                  <Link
-                    href={"/login"}
-                    className="flex items-center gap-2 py-2 px-3 rounded-sm w-full text-foreground! hover:bg-blue-100!"
-                  >
-                    <LogIn width={16} height={16} />
-                    <div>Đăng nhập</div>
-                  </Link>
-                  <Link
-                    href={"/register"}
-                    className="flex items-center gap-2 py-2 px-3 rounded-sm w-full text-foreground! hover:bg-blue-100!"
-                  >
-                    <UserRoundPlus width={16} height={16} />
-                    <div>Đăng ký</div>
-                  </Link>
-                  <Link
-                    href={"/forgot-pass"}
-                    className="flex items-center gap-2 py-2 px-3 rounded-sm w-full text-foreground! hover:bg-blue-100!"
-                  >
-                    <KeySquare width={16} height={16} />
-                    <div>Quên mật khẩu</div>
-                  </Link>
+                  {isAuthenticated ? (
+                    <>
+                      <Link
+                        href={"/admin/v1/dashboard"}
+                        className="flex items-center gap-2 py-2 px-3 rounded-sm w-full text-foreground! hover:bg-blue-100!"
+                      >
+                        <User width={16} height={16} />
+                        <div>Trang quản trị</div>
+                      </Link>
+                      <Link
+                        href={"/profile/my-profile"}
+                        className="flex items-center gap-2 py-2 px-3 rounded-sm w-full text-foreground! hover:bg-blue-100!"
+                      >
+                        <User width={16} height={16} />
+                        <div>Thông tin cá nhân</div>
+                      </Link>
+                      <Link
+                        href={"/profile/my-profile"}
+                        className="flex items-center gap-2 py-2 px-3 rounded-sm w-full text-foreground! hover:bg-blue-100!"
+                      >
+                        <User width={16} height={16} />
+                        <div>Đổi mật khẩu</div>
+                      </Link>
+                      <Link
+                        href={"/profile/my-profile"}
+                        className="flex items-center gap-2 py-2 px-3 rounded-sm w-full text-foreground! hover:bg-blue-100!"
+                      >
+                        <User width={16} height={16} />
+                        <div>Đơn hàng đã mua</div>
+                      </Link>
+                      <button
+                        onClick={logout}
+                        className="cursor-pointer flex items-center gap-2 py-2 px-3 rounded-sm text-foreground! hover:bg-blue-100!"
+                      >
+                        <UserRoundPlus width={16} height={16} />
+                        <div>Đăng xuất</div>
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href={"/login"}
+                        className="flex items-center gap-2 py-2 px-3 rounded-sm w-full text-foreground! hover:bg-blue-100!"
+                      >
+                        <LogIn width={16} height={16} />
+                        <div>Đăng nhập</div>
+                      </Link>
+                      <Link
+                        href={"/register"}
+                        className="flex items-center gap-2 py-2 px-3 rounded-sm w-full text-foreground! hover:bg-blue-100!"
+                      >
+                        <UserRoundPlus width={16} height={16} />
+                        <div>Đăng ký</div>
+                      </Link>
+                      <Link
+                        href={"/forgot-pass"}
+                        className="flex items-center gap-2 py-2 px-3 rounded-sm w-full text-foreground! hover:bg-blue-100!"
+                      >
+                        <KeySquare width={16} height={16} />
+                        <div>Quên mật khẩu</div>
+                      </Link>
+                    </>
+                  )}
                 </div>
               }
             >
               <div className="flex gap-2 items-center">
-                <div className="cursor-pointer p-2">
-                  <User width={24} height={24} className="text-slate-800" />
+                <div className="cursor-pointer p-2 flex gap-1 items-center">
+                  {isAuthenticated && (
+                    <div className="flex flex-col items-end">
+                      <div className="text-blue-600 text-[9px]">Khách hàng</div>
+                      <div className="font-bold text-sm leading-3.5">Admin</div>
+                    </div>
+                  )}
+                  <User width={28} height={28} className="text-slate-800" />
                 </div>
               </div>
             </Popover>

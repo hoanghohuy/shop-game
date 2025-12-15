@@ -40,7 +40,7 @@ const productType = [
 export default function page() {
   return (
     <div className="max-w-[1200px] mx-auto pb-4">
-      <div className="xl:px-0 xs:px-3">
+      <div className="xl:px-0 xs:px-3 mt-2">
         <div className="h-[200px] xl:h-[300px] text-white font-bold text-3xl bg-slate-700 rounded-lg flex items-center justify-center ">
           Cẩm nang chơi game
         </div>

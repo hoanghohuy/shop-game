@@ -1,14 +1,15 @@
 "use client";
 import HelperText from "@/components/HelperText";
 import InputLabel from "@/components/Label/InputLabel";
+import { useAuthStore } from "@/store/authStore";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Input, Typography } from "antd";
+import { Button, Input, message } from "antd";
 import { Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as Yup from "yup";
-const { Title } = Typography;
 
 interface ILogin {
   username: string;
@@ -16,6 +17,8 @@ interface ILogin {
 }
 
 export default function page() {
+  const { login, isAuthenticated } = useAuthStore();
+  const [messageApi, contextHolder] = message.useMessage();
   const [showPassword, setShowPassword] = useState(false);
   const {
     handleSubmit,
@@ -24,13 +27,37 @@ export default function page() {
   } = useForm<ILogin>({
     resolver: yupResolver(
       Yup.object().shape({
-        username: Yup.string().trim().required("Vui lòng điền tên đăng nhập."),
-        password: Yup.string().trim().required("Vui lòng nhập mật khẩu"),
+        username: Yup.string()
+          .trim()
+          .required("Vui lòng điền tên đăng nhập.")
+          .min(5, "Tên đăng nhập phải có 5 ký tự trở lên"),
+        password: Yup.string()
+          .trim()
+          .required("Vui lòng nhập mật khẩu")
+          .min(6, "Mật khẩu phải có 6 ký tự trở lên"),
       })
     ),
   });
 
-  const onSubmit = (data: ILogin) => {};
+  const onSubmit = (data: ILogin) => {
+    if (data.username == "admin" && data.password == "hoanghuy56") {
+      messageApi.open({
+        type: "error",
+        content: "Đăng nhập thành công!",
+      });
+      login("example_token");
+      window.location.assign("/");
+    } else {
+      messageApi.open({
+        type: "error",
+        content: "Thông tin tài khoản hoặc mật khẩu không chính xác!",
+      });
+    }
+  };
+
+  if (isAuthenticated) {
+    redirect("/");
+  }
 
   return (
     <div className="w-full xl:max-w-[400px] mx-auto xs:px-3">
@@ -105,6 +132,7 @@ export default function page() {
           </Button>
         </Link>
       </form>
+      {contextHolder}
     </div>
   );
 }
