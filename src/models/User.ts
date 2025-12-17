@@ -3,10 +3,8 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface IUser extends Document {
   username: string;
   password: string;
-  fullname: string;
   reset_code: string;
   email: string;
-  phone: string;
   role: number;
   last_login_at: string;
   isActive: boolean;
@@ -14,12 +12,16 @@ export interface IUser extends Document {
 
 const UserSchema = new Schema(
   {
-    username: { type: String, required: true },
-    password: { type: String, required: true },
-    fullname: { type: String, required: true },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+      match: /^[a-z0-9]+$/,
+    },
+    password: { type: String, required: true, select: false },
     reset_code: { type: String, required: false },
     email: { type: String, required: true },
-    phone: { type: String, required: true },
     role: { type: Number, required: true, default: 1 },
     last_login_at: { type: Date, required: true, default: Date.now },
     active: { type: Boolean, required: true, default: true },

@@ -1,22 +1,19 @@
 import { ApiResponse } from "@/lib/api";
-import { loginService } from "@/services/user.service";
+import { validateBody } from "@/middlewares/validateBody";
+import { loginSchema, LoginDTO } from "@/validators/auth.schema";
+import { loginUser } from "@/services/auth.service";
 
 export async function POST(req: Request) {
+  const body = await validateBody<LoginDTO>(req, loginSchema);
+  if (body instanceof Response) return body;
+
   try {
-    const { username, password } = await req.json();
-
-    const result = await loginService(username, password);
-
-    if (!result.success) {
-      return Response.json(ApiResponse(false, null, result.message), {
-        status: 400,
-      });
-    }
-
+    const result = await loginUser(body);
     return Response.json(ApiResponse(true, result.data));
   } catch (err: any) {
-    return Response.json(ApiResponse(false, null, err.message), {
-      status: 500,
-    });
+    return Response.json(
+      ApiResponse(false, null, err.message || "Login failed"),
+      { status: 401 }
+    );
   }
 }

@@ -1,41 +1,66 @@
 "use client";
 import HelperText from "@/components/HelperText";
 import InputLabel from "@/components/Label/InputLabel";
+import { AuthService } from "@/services/frontend/auth/auth.service";
+import { USERNAME_REGEX } from "@/validators/user.schema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Input, Typography } from "antd";
+import { Button, Input, message } from "antd";
 import { Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as Yup from "yup";
-const { Title } = Typography;
-
-interface ILogin {
-  email: string;
-  username: string;
-  password: string;
-}
 
 export default function page() {
+  const [messageApi, contextHolder] = message.useMessage();
   const [showPassword, setShowPassword] = useState(false);
   const {
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
-  } = useForm<ILogin>({
+  } = useForm<IRegisterDto>({
     resolver: yupResolver(
       Yup.object().shape({
         email: Yup.string()
-          .email("Vui lòng điền email đúng định dạng.")
+          .email("Vui lòng điền email đúng định dạng")
           .trim()
-          .required("Vui lòng điền email của bạn."),
-        username: Yup.string().trim().required("Vui lòng điền tên đăng nhập."),
-        password: Yup.string().trim().required("Vui lòng nhập mật khẩu"),
+          .required("Vui lòng điền email của bạn"),
+        username: Yup.string()
+          .trim()
+          .required("Vui lòng điền tên đăng nhập")
+          .min(5, "Username tối thiểu 5 ký tự")
+          .max(16, "Username tối đa 16 ký tự")
+          .matches(USERNAME_REGEX, "Username chỉ chứa kí tự thường và số"),
+        password: Yup.string()
+          .trim()
+          .required("Vui lòng nhập mật khẩu")
+          .min(6, "Mật khẩu có tối thiểu 6 ký tự")
+          .max(32, "Mật khẩu phải có tối đa 32 ký tự"),
       })
     ),
   });
 
-  const onSubmit = (data: ILogin) => {};
+  const onSubmit = async (data: IRegisterDto) => {
+    try {
+      await AuthService.register(data);
+      messageApi.open({
+        type: "success",
+        content: "Đăng ký tài khoản thành công!",
+      });
+    } catch (error: any) {
+      if (error.status == 400) {
+        messageApi.open({
+          type: "error",
+          content: "Tên đăng nhập đã tồn tại! Vui lòng thử lại",
+        });
+        return;
+      }
+      messageApi.open({
+        type: "error",
+        content: "Đã có lỗi xảy ra, vui lòng thử lại sau!",
+      });
+    }
+  };
 
   return (
     <div className="w-full xl:max-w-[400px] mx-auto xs:px-3">
@@ -50,6 +75,7 @@ export default function page() {
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <Input
+              size="large"
               className="w-full"
               value={value}
               onChange={onChange}
@@ -65,6 +91,7 @@ export default function page() {
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <Input
+              size="large"
               className="w-full"
               value={value}
               onChange={onChange}
@@ -80,6 +107,7 @@ export default function page() {
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <Input
+              size="large"
               type={showPassword ? "text" : "password"}
               className="w-full"
               value={value}
@@ -111,12 +139,13 @@ export default function page() {
           htmlType="submit"
           type="primary"
           className="w-full"
+          size="large"
         >
           Đăng ký ngay
         </Button>
         <Link href={"/login"}>
           <Button
-            loading={isSubmitting}
+            size="large"
             htmlType="button"
             type="default"
             className="w-full mt-2"
@@ -125,6 +154,7 @@ export default function page() {
           </Button>
         </Link>
       </form>
+      {contextHolder}
     </div>
   );
 }

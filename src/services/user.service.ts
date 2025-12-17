@@ -1,8 +1,9 @@
 import { connectDB } from "@/lib/mongodb";
 import jwt from "jsonwebtoken";
 import User from "@/models/User";
-import { findUserByUsername } from "@/repositories/user.repository";
 import bcrypt from "bcryptjs";
+import { CreateUserDTO } from "@/validators/user.schema";
+import { findUserByUsername } from "@/repositories/user.repository";
 
 export async function loginService(username: string, password: string) {
   const user = await findUserByUsername(username);
@@ -46,10 +47,21 @@ export async function getUsers() {
   return await User.find().select("username phone").lean();
 }
 
-export async function createUser(payload: {
-  username: string;
-  password: string;
-}) {
-  await connectDB();
-  return await User.create(payload);
+export async function createUser(data: CreateUserDTO) {
+  // 🔐 Hash password
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+
+  const user = await User.create({
+    email: data.email,
+    username: data.username,
+    password: hashedPassword,
+  });
+
+  return {
+    data: {
+      id: user._id,
+      email: user.email,
+      username: user.username,
+    },
+  };
 }

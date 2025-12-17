@@ -1,22 +1,19 @@
 "use client";
 import HelperText from "@/components/HelperText";
 import InputLabel from "@/components/Label/InputLabel";
+import { AuthService } from "@/services/frontend/auth/auth.service";
 import { useAuthStore } from "@/store/authStore";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Input, message } from "antd";
 import { Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as Yup from "yup";
 
-interface ILogin {
-  username: string;
-  password: string;
-}
-
 export default function page() {
+  const router = useRouter();
   const { login, isAuthenticated } = useAuthStore();
   const [messageApi, contextHolder] = message.useMessage();
   const [showPassword, setShowPassword] = useState(false);
@@ -24,7 +21,7 @@ export default function page() {
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
-  } = useForm<ILogin>({
+  } = useForm<ILoginDto>({
     resolver: yupResolver(
       Yup.object().shape({
         username: Yup.string()
@@ -39,15 +36,16 @@ export default function page() {
     ),
   });
 
-  const onSubmit = (data: ILogin) => {
-    if (data.username == "admin" && data.password == "hoanghuy56") {
+  const onSubmit = async (data: ILoginDto) => {
+    try {
+      const res = await AuthService.login(data);
       messageApi.open({
-        type: "error",
+        type: "success",
         content: "Đăng nhập thành công!",
       });
-      login("example_token");
+      login(res.data.accessToken);
       window.location.assign("/");
-    } else {
+    } catch (error) {
       messageApi.open({
         type: "error",
         content: "Thông tin tài khoản hoặc mật khẩu không chính xác!",
@@ -72,6 +70,7 @@ export default function page() {
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <Input
+              size="large"
               className="w-full"
               value={value}
               onChange={onChange}
@@ -87,6 +86,7 @@ export default function page() {
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <Input
+              size="large"
               type={showPassword ? "text" : "password"}
               className="w-full"
               value={value}
@@ -114,6 +114,7 @@ export default function page() {
         />
         {<HelperText text={errors.password?.message} />}
         <Button
+          size="large"
           loading={isSubmitting}
           htmlType="submit"
           type="primary"
@@ -123,7 +124,7 @@ export default function page() {
         </Button>
         <Link href={"/register"}>
           <Button
-            loading={isSubmitting}
+            size="large"
             htmlType="button"
             type="default"
             className="w-full mt-2"
