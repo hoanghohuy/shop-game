@@ -24,14 +24,8 @@ export default function page() {
   } = useForm<ILoginDto>({
     resolver: yupResolver(
       Yup.object().shape({
-        username: Yup.string()
-          .trim()
-          .required("Vui lòng điền tên đăng nhập.")
-          .min(5, "Tên đăng nhập phải có 5 ký tự trở lên"),
-        password: Yup.string()
-          .trim()
-          .required("Vui lòng nhập mật khẩu")
-          .min(6, "Mật khẩu phải có 6 ký tự trở lên"),
+        username: Yup.string().trim().required("Vui lòng điền tên đăng nhập."),
+        password: Yup.string().trim().required("Vui lòng nhập mật khẩu"),
       })
     ),
   });
